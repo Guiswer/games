@@ -4,7 +4,7 @@
 
 import os
 
-# procedimento para limpar o terminal
+# Procedimento para limpar o terminal
 def limpar_terminal():
 	if os.name == 'posix':
 		os.system("clear")
@@ -30,9 +30,10 @@ def entrada_jogador2():
 	choice_player2 = int(input("Jogador 2, digite a posição que deseja jogar: "))
 	return choice_player2
 
-
+vencedor1 = "Player 1"
+vencedor2 = "Player 2"
 def ganhou(vencedor):
-	print("Parabéns {}, você ganhou!")
+	print(f"Parabéns {vencedor}, você ganhou!")
 
 
 print("Bem-vindo ao jogo da velha!\n")
@@ -46,11 +47,15 @@ print("""
        1| 2 |3 
 """)
 
+
 tabuleiro = [["-"]*3 for i in range(3)]
+
+
+# Inicio do jogo
 
 while True: 
 
-	# condicionais para o jogador 1 
+	# Condicionais para o jogador 1 
 
 	choice_player1 = entrada_jogador1()
 
@@ -106,8 +111,16 @@ while True:
 		print(choice_player1)
 		continue
 
+	# Condições de fim de jogo
+	# Jogador 1 vencedor
 
-	# condicionais para o jogador 2 
+	if tabuleiro[0][0] == "X" and tabuleiro[0][1] == "X" and tabuleiro[0][2] == "X" or tabuleiro[1][0] == "X" and tabuleiro[1][1] == "X" and tabuleiro[1][2] == "X" or tabuleiro[2][0] == "X" and tabuleiro[2][1] == "X" and tabuleiro[2][2] == "X":
+		ganhou(vencedor1)
+		break
+
+
+
+	# Condicionais para o jogador 2 
 
 	choice_player2 = entrada_jogador2()
 
@@ -162,3 +175,10 @@ while True:
 		print("Este lugar já foi marcado!")
 		print(choice_player1)
 		continue
+
+	# Condições de fim de jogo
+	# Jogador 2 vencedor
+
+	if tabuleiro[0][0] == "O" and tabuleiro[0][1] == "O" and tabuleiro[0][2] == "O" or tabuleiro[1][0] == "O" and tabuleiro[1][1] == "O" and tabuleiro[1][2] == "O" or tabuleiro[2][0] == "O" and tabuleiro[2][1] == "O" and tabuleiro[2][2] == "O":
+		ganhou(vencedor2)
+		break
