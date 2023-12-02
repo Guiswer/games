@@ -35,6 +35,7 @@ def entrada_jogador2():
 
 vencedor1 = "Player 1"
 vencedor2 = "Player 2"
+
 def ganhou(vencedor):
 	print(f"Parabéns {vencedor}, você ganhou!")
 
@@ -85,8 +86,6 @@ def verificador1(choice_player1):
 		tabuleiro[0][2] = "X"
 		limpar_terminal()
 		matriz()
-
-
 
 
 def verificador2(choice_player2):
@@ -145,6 +144,7 @@ def verificador2(choice_player2):
 		matriz()
 
 
+
 def verificador_marcação_player1(choice_player1):
 
 	if choice_player1 == 1 and tabuleiro[2][0] != "-" or choice_player1 == 2 and tabuleiro[2][1] != "-" or choice_player1 == 3 and tabuleiro[2][2] != "-" or choice_player1 == 4 and tabuleiro[1][0] != "-" or choice_player1 == 5 and tabuleiro[1][1] != "-" or choice_player1 == 6 and tabuleiro[1][2] != "-" or choice_player1 == 7 and tabuleiro[0][0] != "-" or choice_player1 == 8 and tabuleiro[0][1] != "-" or choice_player1 == 9 and tabuleiro[0][2] != "-":
@@ -152,17 +152,17 @@ def verificador_marcação_player1(choice_player1):
 		limpar_terminal()
 		matriz()
 		print("Este lugar já foi marcado!")
-		print(choice_player1)
-		choice_player1 = entrada_jogador1()
+		agaiN1 = entrada_jogador1()
+		verificador1(agaiN1)
 
 def verificador_marcação_player2(choice_player2):
 
 	if choice_player2 == 1 and tabuleiro[2][0] != "-" or choice_player2 == 2 and tabuleiro[2][1] != "-" or choice_player2 == 3 and tabuleiro[2][2] != "-" or choice_player2 == 4 and tabuleiro[1][0] != "-" or choice_player2 == 5 and tabuleiro[1][1] != "-" or choice_player2 == 6 and tabuleiro[1][2] != "-" or choice_player2 == 7 and tabuleiro[0][0] != "-" or choice_player2 == 8 and tabuleiro[0][1] != "-" or choice_player2 == 9 and tabuleiro[0][2] != "-":
 		limpar_terminal()
 		matriz()
-		print("Este lugar já foi marcado!")
-		print(choice_player1)
-		choice_player1 = entrada_jogador1()
+		print("Este lugar já foi marcado!")	
+		agaiN2 = entrada_jogador2()
+		verificador2(agaiN2)
 
 
 def verificador_vitória_player1(tabuleiro):
@@ -170,28 +170,23 @@ def verificador_vitória_player1(tabuleiro):
 	# Condições de fim de jogo
 	# Jogador 1 vencedor
 
-	var = False
-
 	# HORIZONTAL/VERTICAL/DIAGONAL
 	if tabuleiro[0][0] == "X" and tabuleiro[0][1] == "X" and tabuleiro[0][2] == "X" or tabuleiro[1][0] == "X" and tabuleiro[1][1] == "X" and tabuleiro[1][2] == "X" or tabuleiro[2][0] == "X" and tabuleiro[2][1] == "X" and tabuleiro[2][2] == "X" or tabuleiro[0][0] == "X" and tabuleiro[1][0] == "X" and tabuleiro[2][0] == "X" or tabuleiro[0][1] == "X" and tabuleiro[1][1] == "X" and tabuleiro[2][1] == "X" or tabuleiro[0][2] == "X" and tabuleiro[1][2] == "X" and tabuleiro[2][2] == "X" or  tabuleiro[0][0] == "X" and tabuleiro[1][1] == "X" and tabuleiro[2][2] == "X" or tabuleiro[0][2] == "X" and tabuleiro[1][1] == "X" and tabuleiro[2][0] == "X":
 		ganhou(vencedor1)
 
-		var = True
-		return var
+	
+		return True
 
 def verificador_vitória_player2(tabuleiro):
 
 	# Condições de fim de jogo
 	# Jogador 2 vencedor
 
-	var = False
-
 	# HORIZONTAL/VERTICAL/DIAGONAL
 	if tabuleiro[0][0] == "O" and tabuleiro[0][1] == "O" and tabuleiro[0][2] == "O" or tabuleiro[1][0] == "O" and tabuleiro[1][1] == "O" and tabuleiro[1][2] == "O" or tabuleiro[2][0] == "O" and tabuleiro[2][1] == "O" and tabuleiro[2][2] == "O" or tabuleiro[0][0] == "O" and tabuleiro[1][0] == "O" and tabuleiro[2][0] == "O" or tabuleiro[0][1] == "O" and tabuleiro[1][1] == "O" and tabuleiro[2][1] == "O" or tabuleiro[0][2] == "O" and tabuleiro[1][2] == "O" and tabuleiro[2][2] == "O" or  tabuleiro[0][0] == "O" and tabuleiro[1][1] == "O" and tabuleiro[2][2] == "O" or tabuleiro[0][2] == "O" and tabuleiro[1][1] == "O" and tabuleiro[2][0] == "O":
 		ganhou(vencedor2)
 
-		var = True
-		return var
+		return True
 
 def verificador_empate(contador_jogadas):
 
@@ -213,9 +208,6 @@ print("""
 
 tabuleiro = [["-"]*3 for i in range(3)]
 
-var1 = verificador_vitória_player1(tabuleiro)
-var2 = verificador_vitória_player2(tabuleiro)
-
 contador_jogadas = 0
 
 
@@ -229,8 +221,7 @@ while True:
 	verificador_marcação_player1(choice_player1)
 	verificador1(choice_player1)
 
-	verificador_vitória_player1(tabuleiro)
-	if var1:
+	if verificador_vitória_player1(tabuleiro):
 		break
 
 	contador_jogadas += 1 
@@ -243,12 +234,11 @@ while True:
 	verificador_marcação_player2(choice_player2)
 	verificador2(choice_player2)
 
-	verificador_vitória_player2(tabuleiro)
-	if var2:
+	if verificador_vitória_player2(tabuleiro):
 		break	
 
 	contador_jogadas += 1
 	verificador_empate(contador_jogadas)
 
 
-print("Jogo encerrado.\nObrigado por jogar! 😅")
+print("\nJogo encerrado.\nObrigado por jogar! 😅")
